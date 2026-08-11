@@ -1,1 +1,38 @@
-<p>deals-page works!</p>
+<main>
+  <h1>Deals</h1>
+
+  @if (deals$ | async; as deals) {
+  <table>
+    <thead>
+      <tr>
+        <th>Deal</th>
+        <th>Address</th>
+        <th>Purchase Price</th>
+        <th>NOI</th>
+        <th>Cap Rate</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (deal of deals; track deal.id) {
+      <tr>
+        <td>{{ deal.name }}</td>
+        <td>{{ deal.address }}</td>
+
+        <td>
+          {{ deal.purchasePrice | currency: 'USD' : 'symbol' : '1.0-0' }}
+        </td>
+
+        <td>
+          {{ deal.noi | currency: 'USD' : 'symbol' : '1.0-0' }}
+        </td>
+
+        <td>
+          {{ deal.noi / deal.purchasePrice | percent: '1.2-2' }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</main>
