@@ -1,0 +1,55 @@
+<div class="login-page">
+  <main class="login-card">
+    <header class="login-card__header">
+      <span class="brand">INTAPP</span>
+      <h1>Welcome back</h1>
+      <p>Sign in to manage your real estate deals.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="username">Email</label>
+
+        <input id="username" type="email" formControlName="username" autocomplete="username"
+          placeholder="demo@termsheet.com" />
+
+        @if (
+        form.controls.username.touched &&
+        form.controls.username.hasError('required')
+        ) {
+        <span class="field__error">Email is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+
+        <input id="password" type="password" formControlName="password" autocomplete="current-password"
+          placeholder="Enter your password" />
+
+        @if (
+        form.controls.password.touched &&
+        form.controls.password.hasError('required')
+        ) {
+        <span class="field__error">Password is required.</span>
+        }
+      </div>
+
+      @if (invalidCredentials) {
+      <div class="login-error" role="alert">
+        Invalid email or password.
+      </div>
+      }
+
+      <button type="submit">
+        Sign in
+      </button>
+    </form>
+
+    <footer class="demo-credentials">
+      <strong>Demo credentials</strong>
+      <span>demo&commat;termsheet.com</span>
+      <span>termsheet123</span>
+    </footer>
+  </main>
+</div>
