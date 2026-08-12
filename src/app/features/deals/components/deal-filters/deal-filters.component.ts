@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
   DealFilters,
@@ -18,6 +12,7 @@ import {
   imports: [],
   templateUrl: './deal-filters.component.html',
   styleUrl: './deal-filters.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DealFiltersComponent {
   @Input({ required: true })
@@ -39,8 +34,7 @@ export class DealFiltersComponent {
   onOperatorChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
 
-    const operator =
-      select.value === '' ? null : (select.value as PurchasePriceOperator);
+    const operator = select.value === '' ? null : (select.value as PurchasePriceOperator);
 
     this.purchasePriceFilterChange.emit({
       operator,

@@ -17,10 +17,7 @@ export class HighlightPipe implements PipeTransform {
       return [{ text: value, match: false }];
     }
 
-    const escapedSearchTerm = normalizedSearchTerm.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      '\\$&',
-    );
+    const escapedSearchTerm = normalizedSearchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
 

@@ -13,21 +13,21 @@ describe('AuthService', () => {
   });
 
   it('should authenticate with valid credentials', () => {
-    const authenticated = service.login('demo@termsheet.com', 'termsheet123');
+    const authenticated = service.login('demo@example.com', 'demo1234');
 
     expect(authenticated).toBeTrue();
     expect(service.isAuthenticated()).toBeTrue();
   });
 
   it('should reject invalid credentials', () => {
-    const authenticated = service.login('demo@termsheet.com', 'wrong-password');
+    const authenticated = service.login('demo@example.com', 'wrong-password');
 
     expect(authenticated).toBeFalse();
     expect(service.isAuthenticated()).toBeFalse();
   });
 
   it('should log the user out', () => {
-    service.login('demo@termsheet.com', 'termsheet123');
+    service.login('demo@example.com', 'demo1234');
 
     service.logout();
 

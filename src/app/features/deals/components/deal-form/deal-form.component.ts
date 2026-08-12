@@ -48,9 +48,7 @@ export class DealFormComponent {
     this.form.controls.purchasePrice.valueChanges.pipe(
       startWith(this.form.controls.purchasePrice.value),
     ),
-    this.form.controls.noi.valueChanges.pipe(
-      startWith(this.form.controls.noi.value),
-    ),
+    this.form.controls.noi.valueChanges.pipe(startWith(this.form.controls.noi.value)),
   ]).pipe(
     map(([purchasePrice, noi]): CapRateViewModel => {
       const value = purchasePrice > 0 ? noi / purchasePrice : 0;

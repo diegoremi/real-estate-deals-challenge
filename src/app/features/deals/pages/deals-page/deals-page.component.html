@@ -1,34 +1,32 @@
 <main class="deals-page">
   <header class="page-header">
     <div>
-      <span class="eyebrow">INTAPP PROPERTIES</span>
+      <span class="eyebrow">REAL ESTATE DEALS</span>
 
       <h1>Deals</h1>
 
-      <p>
-        Manage and analyze your real estate opportunities.
-      </p>
+      <p>Manage and analyze your real estate opportunities.</p>
     </div>
 
     <div class="page-actions">
-      <button type="button" class="secondary-action" (click)="logout()">
-        Log out
-      </button>
+      <button type="button" class="secondary-action" (click)="logout()">Log out</button>
 
-      <button type="button" class="add-button" (click)="openAddDeal()">
-        + Add deal
-      </button>
+      <button type="button" class="add-button" (click)="openAddDeal()">+ Add deal</button>
     </div>
   </header>
 
   @if (vm$ | async; as vm) {
-  <app-deal-filters [filters]="vm.filters" (nameFilterChange)="onNameFilterChange($event)"
-    (purchasePriceFilterChange)="onPurchasePriceFilterChange($event)" (clearFilters)="onClearFilters()" />
+    <app-deal-filters
+      [filters]="vm.filters"
+      (nameFilterChange)="onNameFilterChange($event)"
+      (purchasePriceFilterChange)="onPurchasePriceFilterChange($event)"
+      (clearFilters)="onClearFilters()"
+    />
 
-  <app-deals-table [deals]="vm.deals" [searchTerm]="vm.filters.name" />
+    <app-deals-table [deals]="vm.deals" [searchTerm]="vm.filters.name" />
   }
 
   @if (isAddDealOpen) {
-  <app-deal-form (dealCreated)="onDealCreated($event)" (cancelled)="closeAddDeal()" />
+    <app-deal-form (dealCreated)="onDealCreated($event)" (cancelled)="closeAddDeal()" />
   }
 </main>

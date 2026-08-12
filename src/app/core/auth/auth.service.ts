@@ -4,11 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly storageKey = 'termsheet_authenticated';
+  private readonly storageKey = 'deal_manager_authenticated';
 
   login(username: string, password: string): boolean {
-    const isValid =
-      username === 'demo@termsheet.com' && password === 'termsheet123';
+    const isValid = username === 'demo@example.com' && password === 'demo1234';
 
     if (isValid) {
       sessionStorage.setItem(this.storageKey, 'true');

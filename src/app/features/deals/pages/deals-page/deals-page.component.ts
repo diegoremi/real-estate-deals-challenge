@@ -16,12 +16,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 @Component({
   selector: 'app-deals-page',
   standalone: true,
-  imports: [
-    AsyncPipe,
-    DealFiltersComponent,
-    DealsTableComponent,
-    DealFormComponent,
-  ],
+  imports: [AsyncPipe, DealFiltersComponent, DealsTableComponent, DealFormComponent],
   templateUrl: './deals-page.component.html',
   styleUrl: './deals-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

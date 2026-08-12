@@ -12,51 +12,37 @@
 
     <tbody>
       @for (deal of deals; track deal.id) {
-      <tr>
-        <td class="deal-name">
-          @for (
-          segment of deal.name | highlight: searchTerm;
-          track $index
-          ) {
-          @if (segment.match) {
-          <mark>{{ segment.text }}</mark>
-          } @else {
-          {{ segment.text }}
-          }
-          }
-        </td>
+        <tr>
+          <td class="deal-name">
+            @for (segment of deal.name | highlight: searchTerm; track $index) {
+              @if (segment.match) {
+                <mark>{{ segment.text }}</mark>
+              } @else {
+                {{ segment.text }}
+              }
+            }
+          </td>
 
-        <td class="address">
-          {{ deal.address }}
-        </td>
+          <td class="address">
+            {{ deal.address }}
+          </td>
 
-        <td class="number">
-          {{
-          deal.purchasePrice
-          | currency: 'USD' : 'symbol' : '1.0-0'
-          }}
-        </td>
+          <td class="number">
+            {{ deal.purchasePrice | currency: 'USD' : 'symbol' : '1.0-0' }}
+          </td>
 
-        <td class="number">
-          {{
-          deal.noi
-          | currency: 'USD' : 'symbol' : '1.0-0'
-          }}
-        </td>
+          <td class="number">
+            {{ deal.noi | currency: 'USD' : 'symbol' : '1.0-0' }}
+          </td>
 
-        <td class="number">
-          {{
-          deal.noi / deal.purchasePrice
-          | percent: '1.2-2'
-          }}
-        </td>
-      </tr>
+          <td class="number">
+            {{ deal.noi / deal.purchasePrice | percent: '1.2-2' }}
+          </td>
+        </tr>
       } @empty {
-      <tr>
-        <td colspan="5" class="empty-state">
-          No deals match your filters.
-        </td>
-      </tr>
+        <tr>
+          <td colspan="5" class="empty-state">No deals match your filters.</td>
+        </tr>
       }
     </tbody>
   </table>

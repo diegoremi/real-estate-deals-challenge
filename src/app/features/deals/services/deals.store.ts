@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { CreateDeal, Deal } from '../models/deal.model';
 import { MOCK_DEALS } from '../data/mock-deals';
-import {
-  DealFilters,
-  PurchasePriceOperator,
-} from '../models/deal-filters.model';
+import { DealFilters, PurchasePriceOperator } from '../models/deal-filters.model';
 
 const INITIAL_FILTERS: DealFilters = {
   name: '',
@@ -19,13 +16,9 @@ const INITIAL_FILTERS: DealFilters = {
   providedIn: 'root',
 })
 export class DealsStore {
-  private readonly dealsSubject = new BehaviorSubject<readonly Deal[]>(
-    MOCK_DEALS,
-  );
+  private readonly dealsSubject = new BehaviorSubject<readonly Deal[]>(MOCK_DEALS);
 
-  private readonly filtersSubject = new BehaviorSubject<DealFilters>(
-    INITIAL_FILTERS,
-  );
+  private readonly filtersSubject = new BehaviorSubject<DealFilters>(INITIAL_FILTERS);
 
   readonly deals$ = this.dealsSubject.asObservable();
   readonly filters$ = this.filtersSubject.asObservable();
@@ -50,10 +43,7 @@ export class DealsStore {
     });
   }
 
-  setPurchasePriceFilter(
-    operator: PurchasePriceOperator | null,
-    value: number | null,
-  ): void {
+  setPurchasePriceFilter(operator: PurchasePriceOperator | null, value: number | null): void {
     this.filtersSubject.next({
       ...this.filtersSubject.value,
       purchasePrice: {
@@ -67,15 +57,11 @@ export class DealsStore {
     this.filtersSubject.next(INITIAL_FILTERS);
   }
 
-  private filterDeals(
-    deals: readonly Deal[],
-    filters: DealFilters,
-  ): readonly Deal[] {
+  private filterDeals(deals: readonly Deal[], filters: DealFilters): readonly Deal[] {
     const normalizedName = filters.name.trim().toLowerCase();
 
     return deals.filter((deal) => {
-      const matchesName =
-        !normalizedName || deal.name.toLowerCase().includes(normalizedName);
+      const matchesName = !normalizedName || deal.name.toLowerCase().includes(normalizedName);
 
       const matchesPrice = this.matchesPurchasePrice(deal, filters);
 
@@ -86,17 +72,10 @@ export class DealsStore {
   private matchesPurchasePrice(deal: Deal, filters: DealFilters): boolean {
     const { operator, value } = filters.purchasePrice;
 
-    if (
-      operator === null ||
-      value === null ||
-      !Number.isFinite(value) ||
-      value < 0
-    ) {
+    if (operator === null || value === null || !Number.isFinite(value) || value < 0) {
       return true;
     }
 
-    return operator === 'greaterThan'
-      ? deal.purchasePrice > value
-      : deal.purchasePrice < value;
+    return operator === 'greaterThan' ? deal.purchasePrice > value : deal.purchasePrice < value;
   }
 }
