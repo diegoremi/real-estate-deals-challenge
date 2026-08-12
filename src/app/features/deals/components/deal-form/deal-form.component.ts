@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostListener,
   Output,
   inject,
 } from '@angular/core';
@@ -30,6 +31,11 @@ export class DealFormComponent {
   readonly dealCreated = new EventEmitter<CreateDeal>();
   @Output()
   readonly cancelled = new EventEmitter<void>();
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.onCancel();
+  }
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -67,6 +73,12 @@ export class DealFormComponent {
 
   onCancel(): void {
     this.cancelled.emit();
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.onCancel();
+    }
   }
 
   private getCapRateStatus(capRate: number): CapRateViewModel['status'] {

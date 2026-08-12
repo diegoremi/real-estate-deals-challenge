@@ -40,4 +40,8 @@ export class LoginComponent {
 
     this.router.navigate(['/deals']);
   }
+
+  clearAuthenticationError(): void {
+    this.invalidCredentials = false;
+  }
 }
