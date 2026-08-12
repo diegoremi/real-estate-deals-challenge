@@ -10,9 +10,15 @@
       </p>
     </div>
 
-    <button type="button" class="add-button">
-      + Add deal
-    </button>
+    <div class="page-actions">
+      <button type="button" class="secondary-action" (click)="logout()">
+        Log out
+      </button>
+
+      <button type="button" class="add-button" (click)="openAddDeal()">
+        + Add deal
+      </button>
+    </div>
   </header>
 
   @if (vm$ | async; as vm) {
@@ -20,5 +26,9 @@
     (purchasePriceFilterChange)="onPurchasePriceFilterChange($event)" (clearFilters)="onClearFilters()" />
 
   <app-deals-table [deals]="vm.deals" [searchTerm]="vm.filters.name" />
+  }
+
+  @if (isAddDealOpen) {
+  <app-deal-form (dealCreated)="onDealCreated($event)" (cancelled)="closeAddDeal()" />
   }
 </main>

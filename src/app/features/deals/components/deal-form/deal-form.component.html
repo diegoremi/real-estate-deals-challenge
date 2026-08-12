@@ -1,0 +1,143 @@
+<div class="modal-backdrop" role="presentation">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="add-deal-title">
+    <header class="modal__header">
+      <div>
+        <h2 id="add-deal-title">
+          Add deal
+        </h2>
+
+        <p>
+          Enter the details of the real estate opportunity.
+        </p>
+      </div>
+
+      <button type="button" class="icon-button" aria-label="Close add deal dialog" (click)="onCancel()">
+        ×
+      </button>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="deal-name">
+          Deal name
+        </label>
+
+        <input id="deal-name" type="text" formControlName="name" placeholder="e.g. Midtown Office Plaza" />
+
+        @if (
+        form.controls.name.touched &&
+        form.controls.name.hasError('required')
+        ) {
+        <span class="field__error">
+          Deal name is required.
+        </span>
+        }
+
+        @if (
+        form.controls.name.touched &&
+        form.controls.name.hasError('maxlength')
+        ) {
+        <span class="field__error">
+          Deal name cannot exceed 100 characters.
+        </span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="address">
+          Address
+        </label>
+
+        <input id="address" type="text" formControlName="address"
+          placeholder="e.g. 1200 Market St, San Francisco, CA" />
+
+        @if (
+        form.controls.address.touched &&
+        form.controls.address.hasError('required')
+        ) {
+        <span class="field__error">
+          Address is required.
+        </span>
+        }
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="purchase-price">
+            Purchase price
+          </label>
+
+          <div class="money-input">
+            <span>$</span>
+
+            <input id="purchase-price" type="number" min="1" step="1000" formControlName="purchasePrice" />
+          </div>
+
+          @if (
+          form.controls.purchasePrice.touched &&
+          form.controls.purchasePrice.invalid
+          ) {
+          <span class="field__error">
+            Purchase price must be greater than $0.
+          </span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="noi">
+            NOI
+          </label>
+
+          <div class="money-input">
+            <span>$</span>
+
+            <input id="noi" type="number" min="0" step="1000" formControlName="noi" />
+          </div>
+
+          @if (
+          form.controls.noi.touched &&
+          form.controls.noi.invalid
+          ) {
+          <span class="field__error">
+            NOI cannot be negative.
+          </span>
+          }
+        </div>
+      </div>
+
+      @if (capRateVm$ | async; as capRate) {
+      <aside class="cap-rate">
+        <div>
+          <span class="cap-rate__label">
+            Estimated Cap Rate
+          </span>
+
+          <strong>
+            {{ capRate.value | percent: '1.2-2' }}
+          </strong>
+        </div>
+
+        <span class="cap-rate__status" [class.cap-rate__status--typical]="
+              capRate.status === 'Typical'
+            ">
+          {{ capRate.status }}
+        </span>
+
+        <small>
+          A typical cap rate is between 5% and 12%.
+        </small>
+      </aside>
+      }
+
+      <footer class="modal__actions">
+        <button type="button" class="secondary-button" (click)="onCancel()">
+          Cancel
+        </button>
+
+        <button type="submit" class="primary-button">
+          Add deal
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>

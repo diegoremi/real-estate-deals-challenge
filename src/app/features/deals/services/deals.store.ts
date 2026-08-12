@@ -86,7 +86,12 @@ export class DealsStore {
   private matchesPurchasePrice(deal: Deal, filters: DealFilters): boolean {
     const { operator, value } = filters.purchasePrice;
 
-    if (operator === null || value === null || !Number.isFinite(value)) {
+    if (
+      operator === null ||
+      value === null ||
+      !Number.isFinite(value) ||
+      value < 0
+    ) {
       return true;
     }
 
