@@ -1,0 +1,66 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.deals-page {
+  width: min(1200px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0.35rem 0;
+    font-size: 2rem;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+  }
+}
+
+.eyebrow {
+  color: #64748b;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.add-button {
+  min-height: 42px;
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 6px;
+  background: #111827;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+app-deal-filters {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .deals-page {
+    width: min(100% - 2rem, 1200px);
+    padding: 2rem 0;
+  }
+
+  .page-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

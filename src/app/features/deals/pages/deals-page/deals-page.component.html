@@ -1,38 +1,24 @@
-<main>
-  <h1>Deals</h1>
+<main class="deals-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">INTAPP PROPERTIES</span>
 
-  @if (deals$ | async; as deals) {
-  <table>
-    <thead>
-      <tr>
-        <th>Deal</th>
-        <th>Address</th>
-        <th>Purchase Price</th>
-        <th>NOI</th>
-        <th>Cap Rate</th>
-      </tr>
-    </thead>
+      <h1>Deals</h1>
 
-    <tbody>
-      @for (deal of deals; track deal.id) {
-      <tr>
-        <td>{{ deal.name }}</td>
-        <td>{{ deal.address }}</td>
+      <p>
+        Manage and analyze your real estate opportunities.
+      </p>
+    </div>
 
-        <td>
-          {{ deal.purchasePrice | currency: 'USD' : 'symbol' : '1.0-0' }}
-        </td>
+    <button type="button" class="add-button">
+      + Add deal
+    </button>
+  </header>
 
-        <td>
-          {{ deal.noi | currency: 'USD' : 'symbol' : '1.0-0' }}
-        </td>
+  @if (vm$ | async; as vm) {
+  <app-deal-filters [filters]="vm.filters" (nameFilterChange)="onNameFilterChange($event)"
+    (purchasePriceFilterChange)="onPurchasePriceFilterChange($event)" (clearFilters)="onClearFilters()" />
 
-        <td>
-          {{ deal.noi / deal.purchasePrice | percent: '1.2-2' }}
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+  <app-deals-table [deals]="vm.deals" [searchTerm]="vm.filters.name" />
   }
 </main>

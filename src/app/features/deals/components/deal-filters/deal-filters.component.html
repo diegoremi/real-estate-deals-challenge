@@ -1,0 +1,40 @@
+<section class="filters" aria-label="Deal filters">
+  <div class="filter">
+    <label for="deal-name">
+      Deal name
+    </label>
+
+    <input id="deal-name" type="search" placeholder="Search deals..." [value]="filters.name"
+      (input)="onNameChange($event)" />
+  </div>
+
+  <div class="filter filter--price">
+    <label for="price-operator">
+      Purchase price
+    </label>
+
+    <div class="price-controls">
+      <select id="price-operator" [value]="filters.purchasePrice.operator ?? ''" (change)="onOperatorChange($event)">
+        <option value="">
+          Any price
+        </option>
+
+        <option value="greaterThan">
+          Greater than
+        </option>
+
+        <option value="lessThan">
+          Less than
+        </option>
+      </select>
+
+      <input type="number" min="0" step="1000" placeholder="Amount" aria-label="Purchase price amount"
+        [disabled]="!filters.purchasePrice.operator" [value]="filters.purchasePrice.value ?? ''"
+        (input)="onPriceChange($event)" />
+    </div>
+  </div>
+
+  <button type="button" class="clear-button" (click)="clearFilters.emit()">
+    Clear filters
+  </button>
+</section>
